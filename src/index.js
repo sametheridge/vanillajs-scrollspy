@@ -11,13 +11,15 @@ window.requestAnimFrame = (() =>
 )();
 
 export default class VanillaScrollspy {
-  constructor(menu, speed = 2000, easing = 'easeOutSine') {
+  constructor(menu, speed = 2000, easing = 'easeOutSine', containerOffset) {
     this.menu = menu;
     this.speed = speed;
     this.easing = easing;
+    this.containerOffset = containerOffset;
   }
   scrollToY(targetY = 0) {
-    const scrollTargetY = targetY;
+    var scrollTargetY = targetY;
+    if(this.containerOffset) scrollTargetY += this.containerOffset;
     const scrollY = window.scrollY || document.documentElement.scrollTop;
     let currentTime = 0;
     const time = Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / this.speed, 0.8));
